@@ -10,7 +10,7 @@ function raiz = bisect(func,x1,x2,tol)
   % Definir el valo de tolerancia
   % si no es pasasdo a la funcion
   if (nargin < 4)
-    tol = 1.0e4*eps; 
+    tol = 1.0e6*eps; 
   endif
   % Verificar si la raiz se ecuentra cuando
   % x = x1
@@ -33,15 +33,17 @@ function raiz = bisect(func,x1,x2,tol)
     raiz = NaN;
     return;
   endif
-  n = ceil( log( abs(x2 -x1) / tol)  / log(2.0));
+  
+  n = ceil( log( abs(x2 -x1) / tol)  / log(2.0))
   
   for i = 1:n
-    fprintf("(x1,x2) = (%.11f,%.11f)\n",x1,x2)
+    %fprintf("(x1,x2) = (%.11f,%.11f)\n",x1,x2)
     x3 = 0.5 * (x1 + x2);
-      fprintf("(x3) = %.11f\n", x3)
+    % fprintf("(x3) = %.11f\n", x3)
     f3 = func(x3);
     if ( f3 == 0.0 )
        raiz = x3;
+       n = i
        return;
     endif
     if f2*f3 < 0.0
